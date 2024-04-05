@@ -1,7 +1,7 @@
 public class Obat {
     String nama;
     private int harga;
-    int stock, indeks= 0;
+    int stock, indeks;
     Obat(String nama, int harga , int stock, int indeks){
         this.nama = nama;
         this.harga = harga;
@@ -35,7 +35,4 @@ public class Obat {
         return this.harga;
     }
 
-    public void setHarga(int harga){
-        this.harga = harga;
-    }
 }

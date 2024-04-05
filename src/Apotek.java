@@ -9,6 +9,7 @@ public class Apotek {
         Obat obat = new Obat(nama, harga, stock, indeks);
         indeks -= 1;
         Obat referensi = cariObatSebelum(indeks);
+
         if(referensi != null){
             if (referensi.indeks == indeks + 1){
                 System.out.println("Maaf terdapat obat lain pada posisi tersebut");
@@ -47,26 +48,34 @@ public class Apotek {
             return;
         }
 
-        asal -=1;
-        akhir-=1;
+        asal --;
+        akhir--;
         Obat pindah = rakObat[asal];
         Obat terpindah = rakObat[akhir];
+
+//        Melakukan pengecekan jika kedua objek bukan null karena jika dipindahkan dari kecil ke besar
+//        maka harga pindah lebih besar dari harga terpindah begitu sebaliknya jika pindah dari posisi besar ke kecil
         if (terpindah!= null && pindah!= null){
             if (asal>akhir){
                 if (terpindah.getHarga()<pindah.getHarga()){
                     System.out.println("Obat lebih murah dari obat sebelumnya");
                     return;
                 }
+            }else {
+                if (terpindah.getHarga()>pindah.getHarga()){
+                    System.out.println("Obat lebih murah dari obat sebelumnya");
+                    return;
+                }
             }
-            if (terpindah.getHarga()>pindah.getHarga()){
-                System.out.println("Obat lebih murah dari obat sebelumnya");
-                return;
-            }
-        }
 
+        }
+//        Tukar lokasi objek pada list array
         rakObat[akhir] = pindah;
         rakObat[asal] = terpindah;
 
+
+        akhir++;
+        asal ++;
         if (terpindah != null){
             terpindah.indeks =asal+1;
         }
@@ -75,7 +84,7 @@ public class Apotek {
             pindah.indeks =akhir+1;
         }
 
-        System.out.printf("Obat berhasil dipindahkan dari posisi", asal +1 ,"ke posisi", akhir +1);
+        System.out.println("Obat berhasil dipindahkan dari posisi "+ asal +" ke posisi "+ akhir);
     }
     private int rakObatLength(){
         return rakObat.length ;
@@ -92,6 +101,7 @@ public class Apotek {
         }
         return temp;
     }
+
     public void beliObat(int indeks , int jumlah){
         indeks -=1;
 

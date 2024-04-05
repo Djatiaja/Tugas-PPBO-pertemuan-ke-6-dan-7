@@ -9,10 +9,6 @@ public class Obat {
         this.indeks= indeks;
     }
 
-    public void tambahStock(int stock){
-        this.stock += stock;
-    }
-
     @Override
     public String toString() {
         return
@@ -39,7 +35,7 @@ public class Obat {
         return this.harga;
     }
 
-    public void setharga(int harga){
+    public void setHarga(int harga){
         this.harga = harga;
     }
 }

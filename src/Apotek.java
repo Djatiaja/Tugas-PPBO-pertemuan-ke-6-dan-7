@@ -7,7 +7,7 @@ public class Apotek {
             return;
         }
         Obat obat = new Obat(nama, harga, stock, indeks);
-        indeks -= 1;
+        indeks --;
         Obat referensi = cariObatSebelum(indeks);
 
         if(referensi != null){
@@ -61,11 +61,11 @@ public class Apotek {
                     System.out.println("Obat lebih murah dari obat sebelumnya");
                     return;
                 }
-            }else {
-                if (terpindah.getHarga()>pindah.getHarga()){
+            }
+            else if (terpindah.getHarga()>pindah.getHarga()){
                     System.out.println("Obat lebih murah dari obat sebelumnya");
                     return;
-                }
+
             }
 
         }

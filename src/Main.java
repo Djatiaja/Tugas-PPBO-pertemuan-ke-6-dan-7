@@ -6,6 +6,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         Apotek apotekKu= new Apotek();
+
         System.out.print("Masukan ukuran rak obat : ");
         apotekKu.setRakObat(input.nextInt());
 

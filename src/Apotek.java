@@ -1,3 +1,6 @@
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.Arrays;
+
 public class Apotek {
     Obat[] rakObat;
 
@@ -8,18 +11,30 @@ public class Apotek {
         }
         Obat obat = new Obat(nama, harga, stock, indeks);
         indeks --;
-        Obat referensi = cariObatSebelum(indeks);
-
-        if(referensi != null){
-            if (referensi.indeks == indeks + 1){
+        Obat referensiDepan = cariObat(true,indeks);
+        Obat referensiBelakang = cariObat(false,indeks);
+        if(referensiDepan != null){
+            if (referensiDepan.indeks == indeks + 1){
                 System.out.println("Maaf terdapat obat lain pada posisi tersebut");
                 return;
             }
-            else if (referensi.getHarga() > obat.getHarga()){
+            else if (referensiDepan.getHarga() > obat.getHarga()){
                 System.out.println("Obat lebih murah dari obat sebelumnya");
                 return;
             }
         }
+
+        if(referensiBelakang != null){
+            if (referensiBelakang.indeks == indeks + 1){
+                System.out.println("Maaf terdapat obat lain pada posisi tersebut");
+                return;
+            }
+            else if (referensiBelakang.getHarga() < obat.getHarga()){
+                System.out.println("Obat lebih mahal dari obat setelahnya");
+                return;
+            }
+        }
+
         rakObat[indeks] = obat;
         System.out.println("Obat Berhasil Ditambahkan");
     }
@@ -43,6 +58,7 @@ public class Apotek {
     }
 
     public void pindahObat(int asal, int akhir){
+        System.out.println(Arrays.toString(rakObat));
         if (asal > rakObat.length || akhir > rakObat.length || asal==akhir || asal<=0||akhir<=0){
             System.out.println("error");
             return;
@@ -50,6 +66,7 @@ public class Apotek {
 
         asal --;
         akhir--;
+
         Obat pindah = rakObat[asal];
         Obat terpindah = rakObat[akhir];
 
@@ -89,21 +106,32 @@ public class Apotek {
     private int rakObatLength(){
         return rakObat.length ;
     }
-    private Obat cariObatSebelum(int akhir){
+    private Obat cariObat(boolean ascending, int akhir){
         Obat temp= null;
-        for (int i = 0; i < rakObatLength() ; i++) {
-            if (i - 1 >= akhir){
+
+        for (int i = 0; i < rakObatLength(); i++) {
+            if (ascending) {
+                if (i - 1 >= akhir) {
+                    break;
+                }
+                if (rakObat[i] != null) {
+                    temp = rakObat[i];
+                }
+                continue;
+            }
+            if (rakObatLength()-i-1  <= akhir) {
                 break;
             }
-            if (rakObat[i] != null){
-                temp = rakObat[i];
+            if (rakObat[rakObatLength() - i-1] != null) {
+                temp = rakObat[rakObatLength() - 1];
             }
         }
+
         return temp;
     }
 
     public void beliObat(int indeks , int jumlah){
-        indeks -=1;
+        indeks --;
 
         Obat temp = rakObat[indeks];
         if (temp.stock < jumlah){

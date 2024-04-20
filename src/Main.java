@@ -72,6 +72,7 @@ public class Main {
             }
 
             else if (Objects.equals(pilihan, "5")){
+                apotekKu.checkout();
                 System.out.println();
                 break;
             }

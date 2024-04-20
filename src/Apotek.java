@@ -1,9 +1,9 @@
-import java.awt.image.AreaAveragingScaleFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Apotek {
     Obat[] rakObat;
-
+ArrayList<Obat> terbeli= new ArrayList<Obat>();
     public void tambahObat(String nama , int harga, int stock, int indeks){
         if (indeks> rakObat.length || indeks<=0){
             System.out.println("Maaf rak tidak muat");
@@ -58,7 +58,6 @@ public class Apotek {
     }
 
     public void pindahObat(int asal, int akhir){
-        System.out.println(Arrays.toString(rakObat));
         if (asal > rakObat.length || akhir > rakObat.length || asal==akhir || asal<=0||akhir<=0){
             System.out.println("error");
             return;
@@ -94,22 +93,19 @@ public class Apotek {
         akhir++;
         asal ++;
         if (terpindah != null){
-            terpindah.indeks =asal+1;
+            terpindah.indeks =asal;
         }
 
         if (pindah != null){
-            pindah.indeks =akhir+1;
+            pindah.indeks =akhir;
         }
 
         System.out.println("Obat berhasil dipindahkan dari posisi "+ asal +" ke posisi "+ akhir);
     }
-    private int rakObatLength(){
-        return rakObat.length ;
-    }
     private Obat cariObat(boolean ascending, int akhir){
         Obat temp= null;
 
-        for (int i = 0; i < rakObatLength(); i++) {
+        for (int i = 0; i < rakObat.length; i++) {
             if (ascending) {
                 if (i - 1 >= akhir) {
                     break;
@@ -119,11 +115,11 @@ public class Apotek {
                 }
                 continue;
             }
-            if (rakObatLength()-i-1  <= akhir) {
+            if (rakObat.length-i-1  <= akhir) {
                 break;
             }
-            if (rakObat[rakObatLength() - i-1] != null) {
-                temp = rakObat[rakObatLength() - 1];
+            if (rakObat[rakObat.length - i-1] != null) {
+                temp = rakObat[rakObat.length - 1];
             }
         }
 
@@ -131,6 +127,7 @@ public class Apotek {
     }
 
     public void beliObat(int indeks , int jumlah){
+        lihatObat(false);
         indeks --;
 
         Obat temp = rakObat[indeks];
@@ -139,8 +136,29 @@ public class Apotek {
             return;
         }
 
+        terbeli.add(temp);
         temp.stock-=jumlah;
+        temp.terbeli += jumlah;
         System.out.println("Obat Berhasil dibeli");
+    }
+
+    public void checkout(){
+        int total_pembelian = 0;
+        boolean garisAkhir =false;
+        for (Obat obat:terbeli){
+            if (obat != null){
+                garisAkhir=true;
+                System.out.println("------------------------------------------------------------------------");
+                System.out.println(obat.Terbeli());
+                total_pembelian += obat.terbeli * obat.getHarga();
+            }
+        }
+
+        if (garisAkhir){
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("Total yang harus anda bayar adalah " + total_pembelian );
+        }
+
     }
     public void setRakObat (int size){
         this.rakObat = new Obat[size];

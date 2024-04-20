@@ -3,8 +3,9 @@ public class Obat {
     /**
      * Harga bisa diganti oleh orang luar jika tidak disembunyikan dan dibatasi akses system nya.
      */
+
     private int harga;
-    int stock, indeks;
+    int stock, indeks, terbeli;
     Obat(String nama, int harga , int stock, int indeks){
         this.nama = nama;
         this.harga = harga;
@@ -32,6 +33,19 @@ public class Obat {
                 "  |" +
                 " posisi = " + indeks
                 ;
+    }
+
+    public String Terbeli(){
+        return
+        "nama = " + nama  +
+                "  |" +
+                " harga satuan  = " + harga +
+                "  |" +
+                " jumlah pembelian = " + terbeli +
+                "  |" +
+                " subtotal harga  = " + terbeli * harga
+        ;
+
     }
 
     public int getHarga(){

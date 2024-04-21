@@ -32,7 +32,7 @@ public class Obat {
                 " stock = " + stock +
                 "  |" +
                 " posisi = " + indeks
-                ;
+                ;   
     }
 
     public String Terbeli(){

@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Apotek {
     Obat[] rakObat;
-ArrayList<Obat> terbeli= new ArrayList<Obat>();
+ArrayList<Obat> terbeli= new ArrayList<>();
     public void tambahObat(String nama , int harga, int stock, int indeks){
         if (indeks> rakObat.length || indeks<=0){
             System.out.println("Maaf rak tidak muat");
@@ -13,6 +12,7 @@ ArrayList<Obat> terbeli= new ArrayList<Obat>();
         indeks --;
         Obat referensiDepan = cariObat(true,indeks);
         Obat referensiBelakang = cariObat(false,indeks);
+
         if(referensiDepan != null){
             if (referensiDepan.indeks == indeks + 1){
                 System.out.println("Maaf terdapat obat lain pada posisi tersebut");
